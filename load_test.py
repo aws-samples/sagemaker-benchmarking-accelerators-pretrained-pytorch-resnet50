@@ -38,7 +38,6 @@ def one_thread(endpoint_name, feed_data):
             pred.predict(feed_data)
         except:
             num_error += 1
-        pass
 
         latency = time.time() - start
         latency_list.append(latency*1000/throughput_interval)
@@ -68,7 +67,6 @@ def one_thread_boto3(endpoint_name, feed_data):
             client.invoke_endpoint(EndpointName=endpoint_name, Body=feed_data)
         except:
             num_error += 1
-        pass
 
         latency = time.time() - start
         latency_list.append(latency*1000/throughput_interval)
@@ -158,7 +156,7 @@ if __name__ == '__main__':
         
     num_thread = int(sys.argv[1]) # First cmd line argument: number of concurrent client threads (int)
     endpoint_name = sys.argv[2] # Second command line argument: SageMaker Endpoint Name (str)
-    filename = sys.argv[3]
-    request_type = sys.argv[4]
+    filename = sys.argv[3] # Name of the input image file
+    request_type = sys.argv[4] #boto3 or SM python sdk 
 
     load_tester(num_thread, endpoint_name, filename, request_type)
